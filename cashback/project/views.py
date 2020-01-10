@@ -6,6 +6,7 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 import os
 import project.suggestion as Suggestion
+import project.map as Map_CustomAPI
 import time
 
 
@@ -45,4 +46,12 @@ def getMapData(request):
         latitude = request.POST.get("latitude")
         longitude = request.POST.get("longitude")
 
-        
+        storeType = Map_CustomAPI.getStoreType()
+
+        # now get the list of sorted cards
+        #wills code goes here
+
+    
+
+    
+
