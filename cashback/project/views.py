@@ -8,8 +8,6 @@ import os
 import project.suggestion as Suggestion
 import time
 
-
-
 data = os.path.join(os.path.dirname(__file__), '../project/firestore.json')
 cred = credentials.Certificate(data)
 
@@ -17,8 +15,6 @@ cred = credentials.Certificate(data)
 firebase_admin.initialize_app(cred, {
   'projectId': 'ses-hackathon-c6cf5',
 })
-
-
 
 def home(request):
 
@@ -42,7 +38,6 @@ def home(request):
         total += u'{} => {}'.format(doc.id, doc.to_dict())
 
     return render(request, 'project/home.html', {"total":total})
-
 
 def getCoins(request):
     return JsonResponse({'coins':int(round(time.time() * 1000))})
