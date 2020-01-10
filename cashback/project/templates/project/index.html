@@ -56,13 +56,14 @@
 
             let card;
             card =
-                `<li class="list-group-item">
-                    <div class="card" style="border-radius:18px;">
+                `<li class="list-group-item" style="">
+
+                    <div class="card" style="border-radius:18px; {bgcolor}">
 
                         <!-- Card image -->
 
                         <!-- Card content -->
-                        <div class="card-body" style="height: 200px;">
+                        <div class="card-body" style="height: 200px; ">
 
                             <h5 style="position:absolute; left: 5%;">{name}</h5>
                             <br>
@@ -81,12 +82,21 @@
             let cardDeck = document.getElementById("cardDeck");
             cardDeck.innerHTML = "";
             let sortedCards = data.cards;
-
+            
+            i = 0;
             sortedCards.forEach(function(cardData){
+                
                 name = cardData.name;
                 message = cardData.message;
                 let newCard = card.replace('{name}', name);
                 newCard = newCard.replace('{message}', message);
+
+                if (i == 0) {
+                    newCard = newCard.replace('{bgcolor}', 'opacity: .8; background-color #20bf55; background-image: linear-gradient(315deg, #20bf55 0%, #01baef 74%);');
+                } else {
+                    newCard = newCard.replace('{bgcolor}', 'opacity: .8; background-color #20bf55; background-image: linear-gradient(90deg, rgba(229,229,232,1) 0%, rgba(112,109,109,1) 41%, rgba(76,80,80,1) 100%);')
+                }
+                i++;
                 cardDeck.innerHTML += newCard;
             });
         }
