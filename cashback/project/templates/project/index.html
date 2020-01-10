@@ -28,7 +28,10 @@
 
         var x = document.getElementById("demo");
         function getLocation() {
+            console.log("GETTING LOCATIONS")
             if (navigator.geolocation) {
+                console.log("internal")
+
                 navigator.geolocation.getCurrentPosition(showPosition);
             } else {
                 x.innerHTML = "Geolocation is not supported by this browser.";
@@ -36,10 +39,12 @@
         }
 
         function showPosition(position) {
+            
+            console.log("GETTING LOCATIONS 2");
 
             latitude = position.coords.latitude;
             longitude = position.coords.longitude;
-
+            console.log(`{{base_url}}/getCards/${latitude}/${longitude}/${query}`);
             $.get(`{{base_url}}/getCards/${latitude}/${longitude}/${query}`, function (data) {
                 //so now take this data and send to didplay function
                 reloadCardsForNearby(data);
@@ -61,12 +66,12 @@
 
                             <h5 style="position:absolute; left: 5%;">{name}</h5>
                             <br>
-                            <h6 style="position:absolute; left: 5%;">Savings Earned: 4% back at Restuarants</h6>
+                            <br>
+                            <h6 style="position:absolute; left: 5%;">{message}</h6>
 
-                            <div style="position:absolute; top: 40%; left: 5%;" class="badge badge-pill badge-primary">
-                                Primary</div>
+                           
 
-                            <div style="position:absolute; top: 60%; left: 5%;">XXXX-XXXX-XXXX-1234</div>
+                            <div style="position:absolute; top: 75%; left: 5%;">XXXX-XXXX-XXXX-1234</div>
 
                         </div>
 
@@ -75,11 +80,14 @@
             `
             let cardDeck = document.getElementById("cardDeck");
             cardDeck.innerHTML = "";
-            let sortedCards = data.types;
+            let sortedCards = data.cards;
 
             sortedCards.forEach(function(cardData){
-                name = cardData;
-                cardDeck.innerHTML += card.replace('{name}', name);
+                name = cardData.name;
+                message = cardData.message;
+                let newCard = card.replace('{name}', name);
+                newCard = newCard.replace('{message}', message);
+                cardDeck.innerHTML += newCard;
             });
         }
     </script>

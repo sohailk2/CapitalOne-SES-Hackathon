@@ -16,7 +16,16 @@ firebase_admin.initialize_app(cred, {
 db = firestore.client()
 users_ref = db.collection(u'users')
 
-category_to_word = {
+def category_to_word(category_list):
+    if category_list:
+        for category in category_list:
+            if category in category_map:
+                return category_map[category]
+    return "everywhere"
+
+
+
+category_map = {
     'restaurant': 'restaurants',
     'gas_station': 'gas stations',
     'movie_theater': 'movie theaters',
@@ -29,15 +38,29 @@ def monthToQuarter(month):
     return (math.ceil(month / 3) - 1) 
 
 def rewardsEarned(transaction, card):
+    print(transaction['category'])
+    print(card['rewards'])
+
     rewards = card['rewards']
     reward_rate = rewards['other']
     if 'rotation' in rewards:
         quarter = monthToQuarter(transaction['date'].month)
         if (rewards['rotation'][quarter] == transaction['category']):
             reward_rate = rewards['rotation_value']
-    if transaction['category'] in rewards:
-        reward_rate = rewards[transaction['category']]
-    return reward_rate * transaction['amount']
+
+    bestReward = -1
+
+    if (transaction['category'] != None):
+        for category in transaction['category']:
+            if category in rewards:
+                reward_rate = rewards[category]
+                if (reward_rate > bestReward):
+                    bestReward = reward_rate
+    
+    if bestReward == -1:
+        bestReward = rewards['other']
+    return bestReward * transaction['amount']
+    
 
 # use for finding best card for a certain place
 def bestCard(category, user):
@@ -52,7 +75,7 @@ def bestCard(category, user):
             points = rewardsEarned(transaction, card_data)
             card_data['currentPoints'] = points
             card_data['id'] = card.id
-            message = "{} earns ${} back on every $100 spent at {}.".format(card_data['name'], card_data['currentPoints'], category_to_word[category])
+            message = "{} earns ${} back on every $100 spent at {}.".format(card_data['name'], card_data['currentPoints'], category_to_word(category))
             card_data['message'] = message
             card_list.append(card_data)
     sorted_cards = sorted(card_list, key=lambda card: card['currentPoints'], reverse=True)
@@ -79,6 +102,7 @@ def newCard(user):
     for transaction in transactions:
         transaction = transaction.to_dict()
         date = transaction['date'].date()
+        transaction['category'] = [transaction['category']]
         if (today - date < datetime.timedelta(weeks=12)):
             current_rewards = maxPoints(transaction, candidate_cards)
             for id in candidate_cards:
