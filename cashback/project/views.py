@@ -9,7 +9,11 @@ import project.suggestion as Suggestion
 import project.map as Map
 import time
 
+
 user = "Alice"
+
+def login(request):
+    return render(request, 'project/login.html')
 
 def home(request):
 
