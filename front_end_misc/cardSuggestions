@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Marker Labels</title>
+    <link rel="stylesheet" href="css/maps.css">
+
+
+    <!-- MDB icon -->
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="css/mdb.min.css">
+    <!-- Your custom styles (optional) -->
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+
+    <div class="card" id="floating-panel">
+        <div class="card-body">
+            <!--<h5 class="card-title">Special title treatment</h5>
+                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
+
+            <!--Dropdown primary-->
+            <div class="dropdown">
+                <!--Trigger-->
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1-1"
+                    data-toggle="dropdown" onclick="document.getElementById('floating-panel').style.top=0;">Categories</button>
+            </div>
+            <!--/Dropdown primary-->
+        </div>
+    </div>
+
+    <div id="map" style="z-index: 1;">
+    </div>
+
+
+
+
+
+
+    <!-- SCRIPTS-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6ZIX6HQapsI2qQK6g1osuDYXBe8ZDfYs"></script>
+    <script>
+        // In the following example, markers appear when the user clicks on the map.
+        // Each marker is labeled with a single alphabetical character.
+        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var labelIndex = 0;
+
+        function initialize() {
+            var bangalore = { lat: 12.97, lng: 77.59 };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: bangalore
+            });
+
+            // This event listener calls addMarker() when the map is clicked.
+            google.maps.event.addListener(map, 'click', function (event) {
+                addMarker(event.latLng, map);
+            });
+
+            // Add a marker at the center of the map.
+            addMarker(bangalore, map);
+        }
+
+        // Adds a marker to the map.
+        function addMarker(location, map) {
+            // Add the marker at the clicked location, and add the next-available label
+            // from the array of alphabetical characters.
+            var marker = new google.maps.Marker({
+                position: location,
+                // label: labels[labelIndex++ % labels.length],
+                map: map,
+                icon: 'https://img.icons8.com/cotton/.5x/mastercard-credit-card.png'
+            });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+
+
+
+
+    <!-- End your project here-->
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <!-- Your custom scripts (optional) -->
+    <script type="text/javascript" src="js/index2.js"></script>
+</body>
+
+</html>

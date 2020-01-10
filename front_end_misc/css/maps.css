@@ -1,0 +1,92 @@
+
+        /* Always set the map height explicitly to define the size of the div
+             * element that contains the map. */
+            #map {
+              height: 100%;
+            }
+            /* Optional: Makes the sample page fill the window. */
+            html, body {
+              height: 100%;
+              margin: 0;
+              padding: 0;
+            }
+            #floating-panel {
+                width: 100%;
+                position: absolute;
+                top: 0%;
+                bottom:0%;
+                left: 0%;
+                right: 30px;
+                z-index: 5;
+                background-color: #fff;
+                padding: 5px;
+                border: 1px solid #999;
+                text-align: center;
+                font-family: 'Roboto','sans-serif';
+                line-height: 30px;
+                padding-left: 10px;
+                padding-right: 10px;
+                border-top-left-radius: 30px;
+                border-top-right-radius: 30px;
+            }
+#dropdownMenu1-1{
+    border-radius: 20px;
+}
+
+.active-cyan-4 input[type=text]:focus:not([readonly]) {
+    border: 1px solid #4dd0e1;
+    box-shadow: 0 0 0 1px #4dd0e1;
+    }
+
+    #placeholder{
+        font-style: italics;
+        
+    }
+    #contact
+    {
+        display: none;
+        background: grey;
+        color: #FFF;
+        padding: 10px;
+    }
+
+    .pills-rounded .nav-item .nav-link {
+        border-radius: 10em;
+        }
+        .pills-light-purple .nav-item .nav-link.active {
+        background-color: #ba68c8;
+        }
+        
+        .pills-outline-red .nav-item .nav-link {
+        border: 2px solid #fff;
+        color: #666;
+        background-color: transparent;
+        }
+        .pills-outline-red .nav-item .nav-link:hover {
+        border: 2px solid #eee;
+        }
+        .pills-outline-red .nav-item .nav-link.active {
+        border: 2px solid #f44336;
+        color: #f44336;
+        }
+        .pills-outline-red .nav-item .nav-link.active:hover {
+        border: 2px solid #f44336;
+        color: #f44336;
+        }
+        
+        .pills-outline-green .nav-item .nav-link {
+        border: 2px solid #fff;
+        color: #666;
+        background-color: transparent;
+        }
+        .pills-outline-green .nav-item .nav-link:hover {
+        border: 2px solid #eee;
+        }
+        .pills-outline-green .nav-item .nav-link.active {
+        border: 2px solid #4caf50;
+        color: #4caf50;
+        }
+        .pills-outline-green .nav-item .nav-link.active:hover {
+        border: 2px solid #4caf50;
+        color: #4caf50;
+        }
