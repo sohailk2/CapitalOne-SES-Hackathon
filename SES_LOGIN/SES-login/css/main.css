@@ -202,12 +202,19 @@ iframe {
 .login100-form {
   width: 100%;
 }
-
+.login200-title{
+  display: block;
+  font-family: SourceSansPro-Bold;
+  font-size: 30px;
+  color: #eef2f5;
+  line-height: 1.2;
+  text-align: center;
+}
 .login100-form-title {
   display: block;
   font-family: SourceSansPro-Bold;
   font-size: 30px;
-  color: #4b2354;
+  color: #0f4f8b;
   line-height: 1.2;
   text-align: center;
 }
@@ -225,7 +232,7 @@ iframe {
 .input100 {
   font-family: SourceSansPro-Bold;
   font-size: 16px;
-  color: #4b2354;
+  color: #0f4f8b;
   line-height: 1.2;
 
   display: block;
