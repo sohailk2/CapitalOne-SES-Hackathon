@@ -22,13 +22,31 @@ function update_coins() {
     $.get( "http://127.0.0.1:8000/coins", function( data ) {
         console.log(data);
     });
-
 }
 
 window.setInterval(function(){
   /// call your function here
-  update_coins();
+<!--  update_coins();-->
 }, 100);
+
+var x = document.getElementById("demo");
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+
+  latitude = position.coords.latitude;
+  longitude = position.coords.longitude;
+
+   $.get(`http://127.0.0.1:8000/mapData/${latitude}/${longitude}/query`, function( data ) {
+        console.log(data);
+      });
+}
 
 </script>
 
@@ -39,5 +57,10 @@ window.setInterval(function(){
 </head>
     <body>
         <h1>{{total}}</h1>
+
+
+
+         <button type='button' onclick="getLocation()">submit2</button>
+
     </body>
 </html>
