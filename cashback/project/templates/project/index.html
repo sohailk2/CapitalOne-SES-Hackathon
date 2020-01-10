@@ -41,7 +41,45 @@
             longitude = position.coords.longitude;
 
             $.get(`{{base_url}}/getCards/${latitude}/${longitude}/${query}`, function (data) {
-                console.log(data);
+                //so now take this data and send to didplay function
+                reloadCardsForNearby(data);
+            });
+        }
+
+        function reloadCardsForNearby(data) {
+            alert(data);
+
+            let card;
+            card =
+                `<li class="list-group-item">
+                    <div class="card" style="border-radius:18px;">
+
+                        <!-- Card image -->
+
+                        <!-- Card content -->
+                        <div class="card-body" style="height: 200px;">
+
+                            <h5 style="position:absolute; left: 5%;">{name}</h5>
+                            <br>
+                            <h6 style="position:absolute; left: 5%;">Savings Earned: 4% back at Restuarants</h6>
+
+                            <div style="position:absolute; top: 40%; left: 5%;" class="badge badge-pill badge-primary">
+                                Primary</div>
+
+                            <div style="position:absolute; top: 60%; left: 5%;">XXXX-XXXX-XXXX-1234</div>
+
+                        </div>
+
+                    </div>
+                </li>
+            `
+            let cardDeck = document.getElementById("cardDeck");
+            cardDeck.innerHTML = "";
+            let sortedCards = data.types;
+
+            sortedCards.forEach(function(cardData){
+                name = cardData;
+                cardDeck.innerHTML += card.replace('{name}', name);
             });
         }
     </script>
@@ -86,7 +124,7 @@
         </div>
     </nav>
 
-    <div id="cardDisplay">
+    <div >
         <div class="borderless">
 
             <ul class="list-group">
@@ -104,9 +142,9 @@
 
         </div>
 
-        <div class="borderless">
+        <div  class="borderless">
 
-            <ul class="list-group">
+            <ul class="list-group" id="cardDeck">
 
 
                 <li class="list-group-item">
