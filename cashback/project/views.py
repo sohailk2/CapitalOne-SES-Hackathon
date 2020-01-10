@@ -56,9 +56,12 @@ def getCardsForTransaction(request, latitude, longitude, query):
     # so get a list of sorted cards for category
     # so get the category from latitude and longitude
 
-    category =  Map.getStoreType('{},{}'.format(latitude,longitude), query)
+    places =  Map.getStoreType('{},{}'.format(latitude,longitude), query)
+
+    category = list(map(Map.getTypes,places))[0]
+    print(places)
 
     cards = Suggestion.bestCard(category, 'Alice')
-    return JsonResponse({'cards':cards});
+    return JsonResponse({'cards':cards, 'name': places[0]['name']});
 
     
