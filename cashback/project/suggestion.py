@@ -16,6 +16,15 @@ firebase_admin.initialize_app(cred, {
 db = firestore.client()
 users_ref = db.collection(u'users')
 
+category_to_word = {
+    'restaurant': 'restaurants',
+    'gas_station': 'gas stations',
+    'movie_theater': 'movie theaters',
+    'grocery_or_supermarket': 'grocery stores',
+    'walmart': 'Walmart',
+    'lodging': 'hotels'
+}
+
 def monthToQuarter(month):
     return (math.ceil(month / 3) - 1) 
 
@@ -30,28 +39,33 @@ def rewardsEarned(transaction, card):
         reward_rate = rewards[transaction['category']]
     return reward_rate * transaction['amount']
 
+# use for finding best card for a certain place
 def bestCard(category, user):
     user_cards = db.collection(u'users').document(user).get().to_dict()[u'cards']
     cards = db.collection(u'cards').stream()
-    best_option = {'points': 0, 'id':0, 'name':''}
     date = datetime.datetime.now()
     transaction = {'amount': 1, 'date': date, 'category': category}
+    card_list = []
     for card in cards:
         if card.id in user_cards:
             card_data = card.to_dict()
             points = rewardsEarned(transaction, card_data)
-            if (points > best_option['points']):
-                best_option['points'] = points
-                best_option['id'] = card.id 
-                best_option['name'] = card_data['name']
-    return best_option
+            card_data['currentPoints'] = points
+            card_data['id'] = card.id
+            message = "{} earns ${} back on every $100 spent at {}.".format(card_data['name'], card_data['currentPoints'], category_to_word[category])
+            card_data['message'] = message
+            card_list.append(card_data)
+    sorted_cards = sorted(card_list, key=lambda card: card['currentPoints'], reverse=True)
+    return sorted_cards
 
+# called within newCard
 def maxPoints(transaction, candidate_cards):
-    best_option = 0
+    max_points = 0
     for card in candidate_cards.values():
-        best_option = max(rewardsEarned(transaction, card), best_option)
-    return best_option
+        max_points = max(max_points, rewardsEarned(transaction, card))
+    return max_points
 
+# find best new card based on transaction history
 def newCard(user):
     transactions = db.collection(u'users').document(user).collection(u'transactions').stream()
     cards = db.collection(u'cards').stream()
