@@ -21,9 +21,7 @@ def category_to_word(category_list):
         for category in category_list:
             if category in category_map:
                 return category_map[category]
-    return "everywhere"
-
-
+    return "any store"
 
 category_map = {
     'restaurant': 'restaurants',
@@ -38,29 +36,17 @@ def monthToQuarter(month):
     return (math.ceil(month / 3) - 1) 
 
 def rewardsEarned(transaction, card):
-    print(transaction['category'])
-    print(card['rewards'])
-
     rewards = card['rewards']
     reward_rate = rewards['other']
     if 'rotation' in rewards:
         quarter = monthToQuarter(transaction['date'].month)
         if (rewards['rotation'][quarter] == transaction['category']):
             reward_rate = rewards['rotation_value']
-
-    bestReward = -1
-
-    if (transaction['category'] != None):
+    if transaction['category']:
         for category in transaction['category']:
             if category in rewards:
-                reward_rate = rewards[category]
-                if (reward_rate > bestReward):
-                    bestReward = reward_rate
-    
-    if bestReward == -1:
-        bestReward = rewards['other']
-    return bestReward * transaction['amount']
-    
+                reward_rate = max(rewards[category], reward_rate)
+    return reward_rate * transaction['amount']
 
 # use for finding best card for a certain place
 def bestCard(category, user):
@@ -110,8 +96,8 @@ def newCard(user):
                 if (delta_rewards > 0):
                     candidate_cards[id]['benefit'] += delta_rewards
     for id in candidate_cards:
-        candidate_cards[id]['benefit'] /= 100
         candidate_cards[id]['benefit'] *= 8
+        candidate_cards[id]['benefit'] /= 100
         candidate_cards[id]['benefit'] += candidate_cards[id]['bonus'] - candidate_cards[id]['intro'] - candidate_cards[id]['annual']
     sorted_cards = []
     for key, value in sorted(candidate_cards.items(), key=lambda card: card[1]['benefit'], reverse=True):
