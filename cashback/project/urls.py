@@ -4,5 +4,5 @@ from . import views
 urlpatterns = [
     path('', views.home),
     path('coins', views.getCoins),
-    path('mapData', views.getMapData)
+    path('mapData/<lat>/<long>/<query>', views.getMapData)
 ]
