@@ -37,3 +37,12 @@ def home(request):
 
 def getCoins(request):
     return JsonResponse({'coins':int(round(time.time() * 1000))})
+
+def getMapData(request):
+    #send back map data for things to plot
+    if (request.method == 'POST'):
+        query = request.POST.get("query")
+        latitude = request.POST.get("latitude")
+        longitude = request.POST.get("longitude")
+
+        
