@@ -1,6 +1,6 @@
 #col1{
-    padding-top: 15%;
-    padding-bottom: 15%;
+    padding-top: 10%;
+    padding-bottom: 10%;
 }
 
 #col2{
@@ -12,6 +12,13 @@
     width: 100%;
 }
 
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
 
 
 
