@@ -50,7 +50,6 @@ def getCoins(request):
 def getMapData(request, lat, long, query):
     #send back map data for things to plot
     print("in get map data")
-
     return JsonResponse({'lat': lat, 'long': long, 'query': query});
 
     # if (request.method == 'POST'):
