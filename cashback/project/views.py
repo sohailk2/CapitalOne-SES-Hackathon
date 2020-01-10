@@ -41,7 +41,7 @@ def home(request):
     for doc in docs:
         total += u'{} => {}'.format(doc.id, doc.to_dict())
 
-    return render(request, 'project/home.html', {"total":total})
+    return render(request, 'project/index.html', {"total":total})
 
 
 def getCoins(request):
@@ -60,3 +60,6 @@ def getMapData(request, lat, long, query):
     #     print(query, latitude, longitude)
     #     return JsonResponse({'post': int(round(time.time() * 1000))});
     # return JsonResponse({'get':int(round(time.time() * 1000))});
+
+def displayMap(request):
+    return render(request, 'project/map.html')
