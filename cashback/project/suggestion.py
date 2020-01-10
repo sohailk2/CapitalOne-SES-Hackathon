@@ -1,5 +1,7 @@
-def monthToQuarter():
-    return (math.ceil(12/3) - 1) 
+import math
+
+def monthToQuarter(month):
+    return (math.ceil(month/3) - 1) 
 
 def pointsEarned(transaction, card):
     rewards = card['rewards']

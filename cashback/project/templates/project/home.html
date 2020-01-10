@@ -1,6 +1,31 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+function update_coins() {
+//     $.ajax({
+//       method: "GET",
+//       url: "/coins",
+//       data: {},
+//       success: function(data) {
+//         console.log(data) // check out how data is structured
+
+//         // Update the coin amount
+//         $('.status').contents()[0].textContent = 'Balance&nbsp'+data.coins
+//       }
+//     })
+//   };
+
+    $.get( "http://127.0.0.1:8000/coins", function( data ) {
+        console.log(data);
+    });
+
+}
+</script>
+
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
