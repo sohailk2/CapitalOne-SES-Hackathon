@@ -1,9 +1,9 @@
 {% load static %}
-
 <!doctype html>
-<html lang="en">
+<html>
 
 <head>
+
     <title>cash_back</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="{% static 'project/css/main.css' %}">
@@ -12,50 +12,16 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-
     <script>
-        query = "near";
-        locationName = "";
 
-        $(document).on('keypress', function (e) {
-            if (e.which == 13) {
 
-                query = document.getElementById('searchValue').value;
-                //get the geo location and sent this shit to the api
-                getLocation();
 
-            }
-        });
+        function prepareContent() {
 
-        var x = document.getElementById("demo");
-        function getLocation() {
-            console.log("GETTING LOCATIONS")
-            if (navigator.geolocation) {
-                console.log("internal")
-
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                x.innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
-
-        function showPosition(position) {
-
-            console.log("GETTING LOCATIONS 2");
-
-            latitude = position.coords.latitude;
-            longitude = position.coords.longitude;
-            console.log(`{{base_url}}/getCards/${latitude}/${longitude}/${query}`);
-            $.get(`{{base_url}}/getCards/${latitude}/${longitude}/${query}`, function (data) {
+            $.get(`{{base_url}}/sortedCards`, function (data) {
                 //so now take this data and send to didplay function
-                reloadCardsForNearby(data);
-            });
-        }
-
-        function reloadCardsForNearby(data) {
-            console.log(data);
-
-            let card;
+                let cardTemplate = "";
+                let card;
             card =
                 `<li class="list-group-item" style="">
 
@@ -82,16 +48,17 @@
             `
             let cardDeck = document.getElementById("cardDeck");
             cardDeck.innerHTML = "";
-            let sortedCards = data.cards;
 
-            i = 0;
-            sortedCards.forEach(function (cardData) {
-
+            console.log(Object.keys(data));
+            console.log(data['cards']);
+            for (let i = 0; i < data['cards'].length; i++) {
+                let cardData = data['cards'][i][1];
                 name = cardData.name;
-                message = cardData.message;
+                // message = cardData.message;
                 let newCard = card.replace('{name}', name);
-                newCard = newCard.replace('{message}', message);
+                let message = `<h4>Save <span style='color:#F3F3F3;'>$${cardData.benefit} / 2 years</span> by applying for this card.</h4>`
 
+                newCard = newCard.replace('{message}', message);
                 if (i == 0) {
                     newCard = newCard.replace('{bgcolor}', 'opacity: .8; background-color #20bf55; background-image: linear-gradient(315deg, #20bf55 0%, #01baef 74%);');
                 } else {
@@ -99,16 +66,27 @@
                 }
                 i++;
                 cardDeck.innerHTML += newCard;
+            }
+
+
+
             });
 
-            let location = document.getElementById('currentLocation');
-            locationName = data['name']
-            location.innerHTML = locationName;
-        }
+
+
+
+
+    }
+    
+    function openHome() {
+        window.open('/','_self');
+    }
+
     </script>
 </head>
 
-<body onload="getLocation()">
+<body onload="prepareContent()">
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
             <form>
@@ -117,7 +95,7 @@
             </form>
 
 
-        </a> <button onclick="window.open('/dashboard','_self');" class="navbar-toggler" type="button" data-toggle="collapse"
+        </a> <button onclick="openHome()" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -149,38 +127,44 @@
     </nav>
 
     <div>
-        <div class="borderless">
 
-            <ul class="list-group">
-                <li class="list-group-item borderless">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4>
-                                We think you are at <span style="background-color: lightblue;" id="currentLocation"
-                                    class="badge badge-pill">...loading...</span>
-                                .<br>
-                                If you are not at this store enter a category or store in the search field above.
-                                We reccomend the following Cards Below.
-                            </h4>
+        <div>
+            <div id="header" class="borderless">
 
+                <ul class="list-group">
+                    <li class="list-group-item borderless">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>
+                                    Based on your previous transaction history. We recomend the below card to maxamize
+                                    savings.
+                                </h4>
+
+                            </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
 
-            </ul>
+                </ul>
 
+            </div>
+
+            <div class="borderless">
+
+
+
+                <ul class="list-group" id="cardDeck">
+
+
+
+                </ul>
+
+
+
+            </div>
         </div>
 
-        <div class="borderless">
 
-            <ul class="list-group" id="cardDeck">
-
-
-            </ul>
-
-        </div>
     </div>
-
 
 </body>
 

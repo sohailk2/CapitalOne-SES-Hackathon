@@ -9,7 +9,7 @@ import project.suggestion as Suggestion
 import project.map as Map
 import time
 
-
+user = "Alice"
 
 def home(request):
 
@@ -61,7 +61,17 @@ def getCardsForTransaction(request, latitude, longitude, query):
     category = list(map(Map.getTypes,places))[0]
     print(places)
 
-    cards = Suggestion.bestCard(category, 'Alice')
+    cards = Suggestion.bestCard(category, user)
     return JsonResponse({'cards':cards, 'name': places[0]['name']});
 
-    
+def getDashboard(request):
+
+
+
+    return render(request, 'project/dashboard.html')
+
+def getSortedCards(request):
+    sortedCards = Suggestion.newCard(user)
+    return JsonResponse({'cards': sortedCards})
+
+
