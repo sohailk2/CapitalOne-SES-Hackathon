@@ -12,8 +12,8 @@ def getStoreType(location, query):
     response = requests.get(base_map_url + 'latitude=' + location + '&query=' + query +'&key=' + maps_api_key)
     places = response.json()['results']
 
-    if (results):
-        storeTypes = map(getTypes,places)
+    if (places):
+        storeTypes = list(map(getTypes,places))
         return storeTypes[0]
     else:
         return None

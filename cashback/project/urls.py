@@ -5,5 +5,5 @@ urlpatterns = [
     path('', views.home),
     path('coins', views.getCoins),
     path('mapData/<lat>/<long>/<query>', views.getMapData),
-    path('displayMap', views.displayMap)
+    path('getCards/<latitude>/<longitude>/<query>', views.getCardsForTransaction)
 ]

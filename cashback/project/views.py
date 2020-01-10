@@ -6,6 +6,7 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 import os
 import project.suggestion as Suggestion
+import project.map as Map
 import time
 
 
@@ -49,5 +50,14 @@ def getMapData(request, lat, long, query):
     #     return JsonResponse({'post': int(round(time.time() * 1000))});
     # return JsonResponse({'get':int(round(time.time() * 1000))});
 
-def displayMap(request):
-    return render(request, 'project/map.html')
+
+
+def getCardsForTransaction(request, latitude, longitude, query):
+    # so get a list of sorted cards for category
+    # so get the category from latitude and longitude
+
+    category =  Map.getStoreType('{},{}'.format(latitude,longitude), query)
+
+    return JsonResponse({'types':category});
+
+    

@@ -1,20 +1,60 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
 
 <head>
-    <title>Organic Chemistry</title>
+    <title>cash_back</title>
     <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="{% static 'project/css/main.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+    <script>
+        query = "";
+
+        $(document).on('keypress', function (e) {
+            if (e.which == 13) {
+
+                query = document.getElementById('searchValue').value;
+                //get the geo location and sent this shit to the api
+                getLocation();
+
+            }
+        });
+
+        var x = document.getElementById("demo");
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+
+            latitude = position.coords.latitude;
+            longitude = position.coords.longitude;
+
+            $.get(`{{base_url}}/getCards/${latitude}/${longitude}/${query}`, function (data) {
+                console.log(data);
+            });
+        }
+    </script>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
-            <input class="form-control mr-sm-2" type="search" style="width:140%;" placeholder="Search"
-                aria-label="Search">
+            <form>
+                <input class="form-control mr-sm-2" type="search" style="width:100%;" placeholder="Search"
+                    aria-label="Search" id="searchValue" type="">
+            </form>
+
 
         </a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,67 +86,71 @@
         </div>
     </nav>
 
-    <div class="borderless">
+    <div id="cardDisplay">
+        <div class="borderless">
 
-        <ul class="list-group">
-            <li class="list-group-item borderless">
-                <div class="card">
-                    <div class="card-body">
-                        We think you are at "INSERT STORE HERE".
-                        If you are not at this store enter a category or store in the search field above.
-                        We reccomend the following Cards Below.
+            <ul class="list-group">
+                <li class="list-group-item borderless">
+                    <div class="card">
+                        <div class="card-body">
+                            We think you are at "INSERT STORE HERE".
+                            If you are not at this store enter a category or store in the search field above.
+                            We reccomend the following Cards Below.
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
 
-        </ul>
+            </ul>
 
+        </div>
+
+        <div class="borderless">
+
+            <ul class="list-group">
+
+
+                <li class="list-group-item">
+                    <div class="card" style="border-radius:18px;">
+
+                        <!-- Card image -->
+
+                        <!-- Card content -->
+                        <div class="card-body" style="height: 200px;">
+
+                            <h5 style="position:absolute; left: 5%;">CARD TITLE</h5>
+                            <br>
+                            <h6 style="position:absolute; left: 5%;">Savings Earned: 4% back at Restuarants</h6>
+
+                            <div style="position:absolute; top: 40%; left: 5%;" class="badge badge-pill badge-primary">
+                                Primary</div>
+
+                            <div style="position:absolute; top: 60%; left: 5%;">XXXX-XXXX-XXXX-1234</div>
+
+                        </div>
+
+                    </div>
+                </li>
+
+                <li class="list-group-item">
+                    <div class="card">
+                        <div class="card-body">
+                            This is some text within a card body.
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="card">
+                        <div class="card-body">
+                            This is some text within a card body.
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
     </div>
 
-    <div class="borderless">
-
-        <ul class="list-group">
-
-
-            <li class="list-group-item">
-                <div class="card" style="border-radius:18px;">
-
-                    <!-- Card image -->
-
-                    <!-- Card content -->
-                    <div class="card-body" style="height: 200px;">
-
-                        <h5 style="position:absolute; left: 5%;">CARD TITLE</h5>
-                        <br>
-                        <h6 style="position:absolute; left: 5%;">Savings Earned: 4% back at Restuarants</h6>
-
-                        <div style="position:absolute; top: 40%; left: 5%;" class="badge badge-pill badge-primary">
-                            Primary</div>
-
-                        <div style="position:absolute; top: 60%; left: 5%;">XXXX-XXXX-XXXX-1234</div>
-
-                    </div>
-
-                </div>
-            </li>
-            <li class="list-group-item">
-                <div class="card">
-                    <div class="card-body">
-                        This is some text within a card body.
-                    </div>
-                </div>
-            </li>
-            <li class="list-group-item">
-                <div class="card">
-                    <div class="card-body">
-                        This is some text within a card body.
-                    </div>
-                </div>
-            </li>
-
-        </ul>
-
-    </div>
 
 </body>
 
