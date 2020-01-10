@@ -4,9 +4,11 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 import numpy as np
 import datetime
+import os
 
-cred_file = '/Users/wwick/ses/CapitalOne-SES-Hackathon/cashback/project/firestore.json'
-cred = credentials.Certificate(cred_file)
+data = os.path.join(os.path.dirname(__file__), '../project/firestore.json')
+cred = credentials.Certificate(data)
+
 firebase_admin.initialize_app(cred, {
   'projectId': 'ses-hackathon-c6cf5',
 })
@@ -78,7 +80,7 @@ def newCard(user):
         sorted_cards.append([key, value])
     return sorted_cards
 
-if __name__ == '__main__':check
+if __name__ == '__main__':
     new_cards = newCard('Alice')
     print(new_cards)
     best_card = bestCard('restaurant', 'Alice')

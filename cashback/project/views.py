@@ -8,13 +8,7 @@ import os
 import project.suggestion as Suggestion
 import time
 
-data = os.path.join(os.path.dirname(__file__), '../project/firestore.json')
-cred = credentials.Certificate(data)
 
-# Use the application default credentials
-firebase_admin.initialize_app(cred, {
-  'projectId': 'ses-hackathon-c6cf5',
-})
 
 def home(request):
 
