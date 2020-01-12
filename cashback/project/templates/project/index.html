@@ -1,0 +1,189 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>cash_back</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="{% static 'project/css/main.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+    <script>
+        query = "near";
+        locationName = "";
+
+        $(document).on('keypress', function (e) {
+            if (e.which == 13) {
+
+                query = document.getElementById('searchValue').value;
+                //get the geo location and sent this shit to the api
+                getLocation();
+
+            }
+        });
+
+        var x = document.getElementById("demo");
+        function getLocation() {
+            console.log("GETTING LOCATIONS")
+            if (navigator.geolocation) {
+                console.log("internal")
+
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+
+            console.log("GETTING LOCATIONS 2");
+
+            latitude = position.coords.latitude;
+            longitude = position.coords.longitude;
+            console.log(`{{base_url}}/getCards/${latitude}/${longitude}/${query}`);
+            $.get(`{{base_url}}/getCards/${latitude}/${longitude}/${query}`, function (data) {
+                //so now take this data and send to didplay function
+                reloadCardsForNearby(data);
+            });
+        }
+
+        function reloadCardsForNearby(data) {
+            console.log(data);
+
+            let card;
+            card =
+                `<li class="list-group-item" style="">
+
+                    <div class="card" style="border-radius:18px; {bgcolor}">
+
+                        <!-- Card image -->
+
+                        <!-- Card content -->
+                        <div class="card-body" style="height: 200px; ">
+
+                            <h5 style="position:absolute; left: 5%;">{name}</h5>
+                            <br>
+                            <br>
+                            <h6 style="position:absolute; left: 5%;">{message}</h6>
+
+                           
+
+                            <div style="position:absolute; top: 75%; left: 5%;">XXXX-XXXX-XXXX-1234</div>
+
+                        </div>
+
+                    </div>
+                </li>
+            `
+            let cardDeck = document.getElementById("cardDeck");
+            cardDeck.innerHTML = "";
+            let sortedCards = data.cards;
+
+            i = 0;
+            sortedCards.forEach(function (cardData) {
+
+                name = cardData.name;
+                message = cardData.message;
+                let newCard = card.replace('{name}', name);
+                newCard = newCard.replace('{message}', message);
+
+                if (i == 0) {
+                    newCard = newCard.replace('{bgcolor}', 'opacity: .8; background-color #20bf55; background-image: linear-gradient(315deg, #20bf55 0%, #01baef 74%);');
+                } else {
+                    newCard = newCard.replace('{bgcolor}', 'opacity: .8; background-color #20bf55; background-image: linear-gradient(90deg, rgba(229,229,232,1) 0%, rgba(112,109,109,1) 41%, rgba(76,80,80,1) 100%);')
+                }
+                i++;
+                cardDeck.innerHTML += newCard;
+            });
+
+            let location = document.getElementById('currentLocation');
+            locationName = data['name']
+            location.innerHTML = locationName;
+        }
+    </script>
+</head>
+
+<body onload="getLocation()">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <form>
+                <input class="form-control mr-sm-2" type="search" style="width:100%;" placeholder="Search"
+                    aria-label="Search" id="searchValue" type="">
+            </form>
+
+
+        </a> <button onclick="window.open('/dashboard','_self');" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class=""><img src="https://image.flaticon.com/icons/svg/51/51319.svg" height="42" width="42"></span>
+            
+
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown link
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div>
+        <div class="borderless">
+
+            <ul class="list-group">
+                <li class="list-group-item borderless">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>
+                                We think you are at <span style="background-color: lightblue;" id="currentLocation"
+                                    class="badge badge-pill">...loading...</span>
+                                .<br>
+                                If you are not at this store enter a category or store in the search field above.
+                                We recommend the following cards below.
+                            </h4>
+
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="borderless">
+
+            <ul class="list-group" id="cardDeck">
+
+
+            </ul>
+
+        </div>
+    </div>
+
+
+</body>
+
+</html>

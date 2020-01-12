@@ -1,1 +1,1 @@
-web: gunicorn cashback.wsgi
+web: gunicorn app:app
