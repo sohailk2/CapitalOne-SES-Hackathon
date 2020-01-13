@@ -6,6 +6,20 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'project/css/deviceFrame.css' %}">
     <meta name="viewport" content="width=100">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                // if on mobile then dont show the device frame
+                $("#content").parents().removeClass()
+            }
+
+
+        });
+    </script>
 
 </head>
 
@@ -13,7 +27,10 @@
 
 
     <div class="marvel-device iphone-x">
-
+        <!-- <div class="notch">
+            <div class="camera"></div>
+            <div class="speaker"></div>
+        </div> -->
         <div class="top-bar"></div>
         <div class="sleep"></div>
         <div class="bottom-bar"></div>
@@ -25,39 +42,43 @@
             <div class="shadow shadow--bl"></div>
         </div>
         <div class="inner-shadow"></div>
-        <div class="screen" style="overflow: scroll;">
+        <div class="screen" style="overflow: scroll; all:none !important;">
+            <div id="content">
+                <nav class="navbar  navbar-light bg-light">
+                    <a class="navbar-brand" href="#">
+                        <form>
+                            <input class="form-control mr-sm-2" type="search" style="width:100%;" placeholder="Search"
+                                aria-label="Search" id="searchValue" type="">
+                        </form>
 
-            <nav class="navbar  navbar-light bg-light">
-                <a class="navbar-brand" href="#">
-                    <form>
-                        <input class="form-control mr-sm-2" type="search" style="width:100%;" placeholder="Search"
-                            aria-label="Search" id="searchValue" type="">
-                    </form>
 
+                    </a>
 
-                </a>
-                
-                {% if title == 'home' %}
+                    {% if title == 'home' %}
                     <button onclick="window.open('/dashboard','_self');" class="navbar-toggler" type="button"
-                    data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class=""><img src="https://image.flaticon.com/icons/svg/51/51319.svg" height="42"
-                            width="42"></span>
-                </button>
-                {% elif title == 'dashboard' %}
-                <button onclick="openHome()" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class=""><img src="https://image.flaticon.com/icons/svg/846/846449.svg" height="42" width="42"></span>
-        </button>
-                {% endif %}
+                        data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class=""><img src="https://image.flaticon.com/icons/svg/51/51319.svg" height="42"
+                                width="42"></span>
+                    </button>
+                    {% elif title == 'dashboard' %}
+                    <button onclick="openHome()" class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class=""><img src="https://image.flaticon.com/icons/svg/846/846449.svg" height="42"
+                                width="42"></span>
+                    </button>
+                    {% endif %}
 
-               
 
-            </nav>
 
-            {% block content %}
-            {% endblock %}
+                </nav>
+
+                {% block content %}
+                {% endblock %}
+            </div>
+
+
         </div>
     </div>
 
