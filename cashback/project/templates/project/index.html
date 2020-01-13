@@ -1,9 +1,11 @@
+{% extends 'project/base.html' %}
 {% load static %}
 
-<!doctype html>
-<html lang="en">
+{% block content %}
 
-<head>
+
+
+
     <title>cash_back</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="{% static 'project/css/main.css' %}">
@@ -106,49 +108,9 @@
             location.innerHTML = locationName;
         }
     </script>
-</head>
 
-<body onload="getLocation()">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-            <form>
-                <input class="form-control mr-sm-2" type="search" style="width:100%;" placeholder="Search"
-                    aria-label="Search" id="searchValue" type="">
-            </form>
-
-
-        </a> <button onclick="window.open('/dashboard','_self');" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class=""><img src="https://image.flaticon.com/icons/svg/51/51319.svg" height="42" width="42"></span>
-            
-
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown link
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
+<div onload="getLocation()">
+    
 
     <div>
         <div class="borderless">
@@ -184,6 +146,6 @@
     </div>
 
 
-</body>
+</div>
 
-</html>
+{% endblock %}

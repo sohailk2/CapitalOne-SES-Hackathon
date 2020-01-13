@@ -1,6 +1,7 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
+
+{% block content %}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -50,13 +51,10 @@ function showPosition(position) {
 
 </script>
 
-<head>
     <meta charset="UTF-8">
     <title>Home</title>
     <link rel="stylesheet" type="text/css" href="{% static 'project/css/main.css' %}">
-</head>
-    <body>
+
         <h1>{{total}}</h1>
          <button type='button' onclick="getLocation()">submit2</button>
-    </body>
-</html>
+         {% endblock %}
