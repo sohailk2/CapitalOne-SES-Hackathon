@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Marker Labels</title>
+    <link rel="stylesheet" href="css/maps.css">
+  <!-- MDB icon -->
+  <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" href="css/mdb.min.css">
+  <!-- Your custom styles (optional) -->
+  <link rel="stylesheet" href="css/style.css">
+  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+
+    <script>
+
+        down = true;
+
+        function toggleMenu() {
+            let menu = document.getElementById('floating-panel');
+            if (down) {
+                down = false;
+                menu.style.top = '0%';
+            } else {
+                down = true;
+                menu.style.top = '60%';
+            }
+        }
+
+
+    </script>
+
+</head>
+
+<body>
+ <!--Navbar -->
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+          aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="maps.html">Map</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index2.html">Suggestions</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ml-auto nav-flex-icons">
+            <li class="nav-item avatar">
+              <a class="nav-link p-0" href="#">
+                <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg" class="rounded-circle z-depth-0"
+                  alt="avatar image" height="35">
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!--/.Navbar -->
+
+    <div class="card" id="floating-panel" style="overflow: auto;">
+        <button onclick="toggleMenu();">UP</button>
+        <div class="card-body">
+            <!-- Search form -->
+            <div class="active-cyan-3 active-cyan-4 mb-4">
+                <input class="form-control" type="text" placeholder="Search a store to see what credit card to use"
+                    aria-label="Search" style= "border-radius:30px">
+
+                <!-- this is oging to be the auto card -->
+                <div class="creditCard bestCard" style="margin-top: 5px; margin-bottom: 5px;">
+                    <!-- Card -->
+                    <div class="card" style="border-radius:18px;">
+
+                        <!-- Card image -->
+
+                        <!-- Card content -->
+                        <div class="card-body" style="height: 200px;">
+
+                            <span style="position:absolute; left: 5%;">
+                                <h5>CARD TITLE</h5>
+
+                            </span>
+                            <br>
+                            <h6 style="position:absolute; left: 5%;">Savings Earned:</h6>
+
+                            <div style="position:absolute; top: 40%; left: 5%;" class="badge badge-pill badge-primary">
+                                Primary</div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div style="margin-top: 5px; margin-bottom: 5px;">
+                    <div class="creditCard">
+                        <div class="card" style="border-radius:18px;">
+
+                            <!-- Card image -->
+
+                            <!-- Card content -->
+                            <div class="card-body" style="height: 200px;">
+
+                                <h5 style="position:absolute; left: 5%;">CARD TITLE</h5>
+                                <br>
+                                <h6 style="position:absolute; left: 5%;">Savings Earned:</h6>
+
+                                <div style="position:absolute; top: 40%; left: 5%;" class="badge badge-pill badge-primary">
+                                    Primary</div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 5px; margin-bottom: 5px;">
+                    <div class="creditCard">
+                        <div class="card" style="border-radius:18px;">
+
+                        <!-- Card image -->
+                            <div>
+
+                            </div>
+
+                        <!-- Card content -->
+                            <div class="card-body" style="height: 200px;">
+
+                                <h5 style="position:absolute; left: 5%;">CARD TITLE</h5>
+                                <br>
+                                <h6 style="position:absolute; left: 5%;">Savings Earned:</h6>
+
+                                <div style="position:absolute; top: 40%; left: 5%;" class="badge badge-pill badge-primary">
+                                    Primary</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 5px; margin-bottom: 5px;">
+                    <div class="creditCard">
+                        <div class="card" style="border-radius:18px;">
+    
+                            <!-- Card image -->
+    
+                            <!-- Card content -->
+                            <div class="card-body" style="height: 200px;">
+    
+                                <h5 style="position:absolute; left: 5%;">CARD TITLE</h5>
+                                <br>
+                                <h6 style="position:absolute; left: 5%;">Savings Earned:</h6>
+    
+                                <div style="position:absolute; top: 40%; left: 5%;" class="badge badge-pill badge-primary">
+                                    Primary</div>
+                                </div>
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <div id="map" style="z-index: 1;">
+    </div>
+
+
+
+
+
+
+    <!-- SCRIPTS-->
+    <script>
+        $(function () {
+            $("a#toggle").click(function () {
+                $("#contact").slideToggle();
+                return false;
+            });
+        });
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6ZIX6HQapsI2qQK6g1osuDYXBe8ZDfYs"></script>
+    <script>
+        // In the following example, markers appear when the user clicks on the map.
+        // Each marker is labeled with a single alphabetical character.
+        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var labelIndex = 0;
+
+        function initialize() {
+            var bangalore = { lat: 12.97, lng: 77.59 };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: bangalore
+            });
+
+            // This event listener calls addMarker() when the map is clicked.
+            google.maps.event.addListener(map, 'click', function (event) {
+                addMarker(event.latLng, map);
+            });
+
+            // Add a marker at the center of the map.
+            addMarker(bangalore, map);
+        }
+
+        // Adds a marker to the map.
+        function addMarker(location, map) {
+            // Add the marker at the clicked location, and add the next-available label
+            // from the array of alphabetical characters.
+            var marker = new google.maps.Marker({
+                position: location,
+                // label: labels[labelIndex++ % labels.length],
+                map: map,
+                icon: 'https://img.icons8.com/cotton/.5x/mastercard-credit-card.png'
+            });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+
+
+
+
+    <!-- End your project here-->
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <!-- Your custom scripts (optional) -->
+    <script type="text/javascript" src="js/index2.js"></script>
+</body>
+
+</html>
