@@ -72,7 +72,7 @@ pyzmq==18.1.1
 readme-renderer==24.0
 requests==2.22.0
 requests-toolbelt==0.9.1
-rsa==4.0
+rsa==4.1
 shellescape==3.4.1
 SimpleWebSocketServer==0.1.1
 six==1.13.0
