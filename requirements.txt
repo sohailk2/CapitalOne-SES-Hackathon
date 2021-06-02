@@ -84,7 +84,7 @@ traitlets==4.3.3
 twine==3.1.1
 typing==3.7.4.1
 uritemplate==3.0.1
-urllib3==1.25.7
+urllib3==1.26.5
 ushlex==0.99.1
 wcwidth==0.1.8
 webencodings==0.5.1
